@@ -1,13 +1,13 @@
-#介绍
+## 介绍
 仓库里面是一个WopiHost demo,支持word, excel，ppt等文档的预览和编辑。
 
-#环境
+## 环境
 基于Office online 2016，jdk 1.8，spring boot开发。
 
-#遗留问题
-access_token没有做校验，需要的自己实现一下。
+## 遗留问题
+access_token没有做校验，需要的自己实现一下。支持.docx但是不支持.doc格式。
 
-#使用案例
+## 使用案例
 
 word文档预览
 http://[owas.domain]/wv/wordviewerframe.aspx?WOPISrc=http://[WopiHost.domain]:8080/wopi/files/test.docx&access_token=[token]
