@@ -56,8 +56,17 @@ public class FileInfo implements Serializable {
     @JsonProperty("UserCanWrite")
     public boolean userCanWrite;
 
+    /**
+     * 是否支持更新
+     */
     @JsonProperty("SupportsUpdate")
     public boolean supportsUpdate;
+
+    /**
+     * 是否支持锁定
+     */
+    @JsonProperty("SupportsLocks")
+    public boolean supportsLocks;
 
     @JsonIgnore
     public String getBaseFileName() {
@@ -131,6 +140,15 @@ public class FileInfo implements Serializable {
         this.supportsUpdate = supportsUpdate;
     }
 
+    @JsonIgnore
+    public boolean isSupportsLocks() {
+        return supportsLocks;
+    }
+
+    public void setSupportsLocks(boolean supportsLocks) {
+        this.supportsLocks = supportsLocks;
+    }
+
     @Override
     public String toString() {
         return "FileInfo{" +
@@ -142,6 +160,7 @@ public class FileInfo implements Serializable {
                 ", allowExternalMarketplace=" + allowExternalMarketplace +
                 ", userCanWrite=" + userCanWrite +
                 ", supportsUpdate=" + supportsUpdate +
+                ", supportsLocks=" + supportsLocks +
                 '}';
     }
 
