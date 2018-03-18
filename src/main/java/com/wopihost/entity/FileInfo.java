@@ -10,7 +10,7 @@ import java.io.Serializable;
  *
  * 由于wopi的接口不遵守驼峰命名规则，所以需要用@JsonProperty指定别名，
  * 同时在getter上@JsonIgnore，防止出现2个名字
- * Created by admin on 2017/4/15.
+ * Created by ethendev on 2017/4/15.
  */
 public class FileInfo implements Serializable {
 
