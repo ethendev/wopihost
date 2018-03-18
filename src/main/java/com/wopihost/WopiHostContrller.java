@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wopihost.entity.FileInfo;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,9 +16,9 @@ import java.security.NoSuchAlgorithmException;
 
 /**
  * WOPI HOST
- * Created by admin on 2017/4/15.
+ * Created by ethendev on 2017/4/15.
  */
-@Controller
+@RestController
 @RequestMapping(value="/wopi")
 public class WopiHostContrller {
 
@@ -31,7 +30,7 @@ public class WopiHostContrller {
      * @param name
      * @param response
      */
-    @RequestMapping(value="/files/{name}/contents", method= RequestMethod.GET)
+    @GetMapping("/files/{name}/contents")
     public void getFile(@PathVariable(name = "name") String name, HttpServletResponse response) {
         InputStream fis = null;
         OutputStream toClient = null;
@@ -49,7 +48,8 @@ public class WopiHostContrller {
             response.reset();
 
             // 设置response的Header
-            response.addHeader("Content-Disposition", "attachment;filename=" + new String(filename.getBytes("utf-8"), "ISO-8859-1"));
+            response.addHeader("Content-Disposition", "attachment;filename=" +
+                    new String(filename.getBytes("utf-8"), "ISO-8859-1"));
             response.addHeader("Content-Length", "" + file.length());
             toClient = new BufferedOutputStream(response.getOutputStream());
             response.setContentType("application/octet-stream");
@@ -72,7 +72,7 @@ public class WopiHostContrller {
      * @param name
      * @param content
      */
-    @RequestMapping(value="/files/{name}/contents", method= RequestMethod.POST)
+    @PostMapping("/files/{name}/contents")
     public void postFile(@PathVariable(name = "name") String name, @RequestBody byte[] content) {
         // 文件的路径
         String path = filePath + name;
@@ -104,17 +104,15 @@ public class WopiHostContrller {
      * @return
      * @throws UnsupportedEncodingException
      */
-    @RequestMapping("/files/{name}")
-    @ResponseBody
+    @GetMapping("/files/{name}")
     public void getFileInfo(@PathVariable(name = "name") String name, HttpServletRequest request, HttpServletResponse response) {
         String uri = request.getRequestURI();
         FileInfo info = new FileInfo();
         try {
-            // 获取文件名
+            // 获取文件名, 防止中文文件名乱码
             String fileName = URLDecoder.decode(uri.substring(uri.indexOf("wopi/files/") + 11, uri.length()), "UTF-8");
             if (fileName != null && fileName.length() > 0) {
-                String path = filePath + fileName;
-                File file = new File(path);
+                File file = new File(filePath + fileName);
                 if (file.exists()) {
                     // 取得文件名
                     info.setBaseFileName(file.getName());
@@ -131,6 +129,8 @@ public class WopiHostContrller {
 
             ObjectMapper mapper = new ObjectMapper();
             String Json =  mapper.writeValueAsString(info);
+
+            response.setContentType("application/json;charset=utf-8");
             response.getWriter().write(Json);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
