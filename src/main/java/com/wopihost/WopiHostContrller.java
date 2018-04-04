@@ -105,7 +105,7 @@ public class WopiHostContrller {
      * @throws UnsupportedEncodingException
      */
     @GetMapping("/files/{name}")
-    public void getFileInfo(@PathVariable(name = "name") String name, HttpServletRequest request, HttpServletResponse response) {
+    public void getFileInfo(HttpServletRequest request, HttpServletResponse response) {
         String uri = request.getRequestURI();
         FileInfo info = new FileInfo();
         try {
