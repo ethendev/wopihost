@@ -33,8 +33,7 @@ http://[owas.domain]/p/PowerPointFrame.aspx?PowerPointView=EditView&WOPISrc=http
 
 Note：[owas.domain] is the IP address of Office online 2016，[WopiHost.domain] is the address of wopihost。
 
-### Frequently Asked Questions
-* Doc files cannot be previewed and edited, but docx is ok.
-* PPT files cannot be previewed and edited.
-* If the document cannot be edited or previewed, make sure that the wopi server can access the office server.
+### Known issues
+* Doc files can`t be previewed and edited, but docx is ok.
+* PPT files can be previewed, but can`t be edited.
 * I didn't check the access_token parameter. if you need it, implement it yourself.
