@@ -1,3 +1,11 @@
+# wopihost
+
+[![GitHub stars](https://img.shields.io/github/stars/ethendev/wopihost.svg)](https://github.com/ethendev/wopihost/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/ethendev/wopihost.svg)](https://github.com/ethendev/wopihost/network)
+[![GitHub issues](https://img.shields.io/github/issues/ethendev/wopihost.svg)](https://github.com/ethendev/wopihost/issues)
+[![GitHub release](https://img.shields.io/github/release/ethendev/wopihost.svg)](https://github.com/ethendev/wopihost/releases)
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/ethendev/wopihost/master/LICENSE)
+
 ### Introduction
 WopiHost supports previewing and editing documents such as word, excel, and ppt (preview only) through Office Web Apps.
 
@@ -37,3 +45,6 @@ Note：[owas.domain] is the IP address of Office online 2016，[WopiHost.domain]
 * Doc files can`t be previewed and edited, but docx is ok.
 * PPT files can be previewed, but can`t be edited.
 * I didn't check the access_token parameter. if you need it, implement it yourself.
+
+### License
+[MIT License](https://github.com/ethendev/wopihost/blob/master/LICENSE.md)
