@@ -1,4 +1,4 @@
-package com.wopihost;
+package com.ethendev.wopihost;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
