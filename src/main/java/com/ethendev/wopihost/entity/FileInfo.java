@@ -1,6 +1,5 @@
-package com.wopihost.entity;
+package com.ethendev.wopihost.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
@@ -8,8 +7,7 @@ import java.io.Serializable;
 /**
  * 文件属性对象
  *
- * 由于wopi的接口不遵守驼峰命名规则，所以需要用@JsonProperty指定别名，
- * 同时在getter上@JsonIgnore，防止出现2个名字
+ * 由于wopi的接口不遵守驼峰命名规则，所以需要用@JsonProperty指定别名
  * Created by ethendev on 2017/4/15.
  */
 public class FileInfo implements Serializable {
@@ -18,57 +16,56 @@ public class FileInfo implements Serializable {
      * 文件名
      */
     @JsonProperty("BaseFileName")
-    public String baseFileName;
+    private String baseFileName;
 
     /**
      * 文件所有者的唯一编号
      */
     @JsonProperty("OwnerId")
-    public String ownerId;
+    private String ownerId;
 
     /**
      * 文件大小，以bytes为单位
      */
     @JsonProperty("Size")
-    public long size;
+    private long size;
 
     /**
      * 文件的256位bit的SHA-2编码散列内容
      */
     @JsonProperty("SHA256")
-    public String sha256;
+    private String sha256;
 
     /**
      * 文件版本号，文件如果被编辑，版本号也要跟着改变
      */
     @JsonProperty("Version")
-    public long version;
+    private long version;
 
     /**
      * 允许外部服务的连接
      */
     @JsonProperty("AllowExternalMarketplace")
-    public boolean allowExternalMarketplace;
+    private boolean allowExternalMarketplace = true;
 
     /**
      * 更改文件的权限
      */
     @JsonProperty("UserCanWrite")
-    public boolean userCanWrite;
+    private boolean userCanWrite = true;
 
     /**
      * 是否支持更新
      */
     @JsonProperty("SupportsUpdate")
-    public boolean supportsUpdate;
+    private boolean supportsUpdate = true;
 
     /**
      * 是否支持锁定
      */
     @JsonProperty("SupportsLocks")
-    public boolean supportsLocks;
+    private boolean supportsLocks = true;
 
-    @JsonIgnore
     public String getBaseFileName() {
         return baseFileName;
     }
@@ -77,7 +74,6 @@ public class FileInfo implements Serializable {
         this.baseFileName = baseFileName;
     }
 
-    @JsonIgnore
     public String getOwnerId() {
         return ownerId;
     }
@@ -86,7 +82,6 @@ public class FileInfo implements Serializable {
         this.ownerId = ownerId;
     }
 
-    @JsonIgnore
     public long getSize() {
         return size;
     }
@@ -95,7 +90,6 @@ public class FileInfo implements Serializable {
         this.size = size;
     }
 
-    @JsonIgnore
     public String getSha256() {
         return sha256;
     }
@@ -104,7 +98,6 @@ public class FileInfo implements Serializable {
         this.sha256 = sha256;
     }
 
-    @JsonIgnore
     public long getVersion() {
         return version;
     }
@@ -113,7 +106,6 @@ public class FileInfo implements Serializable {
         this.version = version;
     }
 
-    @JsonIgnore
     public boolean isAllowExternalMarketplace() {
         return allowExternalMarketplace;
     }
@@ -122,7 +114,6 @@ public class FileInfo implements Serializable {
         this.allowExternalMarketplace = allowExternalMarketplace;
     }
 
-    @JsonIgnore
     public boolean isUserCanWrite() {
         return userCanWrite;
     }
@@ -131,7 +122,6 @@ public class FileInfo implements Serializable {
         this.userCanWrite = userCanWrite;
     }
 
-    @JsonIgnore
     public boolean isSupportsUpdate() {
         return supportsUpdate;
     }
@@ -140,7 +130,6 @@ public class FileInfo implements Serializable {
         this.supportsUpdate = supportsUpdate;
     }
 
-    @JsonIgnore
     public boolean isSupportsLocks() {
         return supportsLocks;
     }
