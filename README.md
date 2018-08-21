@@ -1,8 +1,5 @@
 # wopihost
 
-[![GitHub stars](https://img.shields.io/github/stars/ethendev/wopihost.svg)](https://github.com/ethendev/wopihost/stargazers)
-[![GitHub forks](https://img.shields.io/github/forks/ethendev/wopihost.svg)](https://github.com/ethendev/wopihost/network)
-[![GitHub issues](https://img.shields.io/github/issues/ethendev/wopihost.svg)](https://github.com/ethendev/wopihost/issues)
 [![GitHub release](https://img.shields.io/github/release/ethendev/wopihost.svg)](https://github.com/ethendev/wopihost/releases)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/ethendev/wopihost/master/LICENSE)
 
@@ -18,12 +15,12 @@
 word文档预览   
 
 http://[owas.domain]/wv/wordviewerframe.aspx?WOPISrc=http://[WopiHost.domain]:8080/wopi/files/test.docx&access_token=123
-![Alt text](http://img.blog.csdn.net/20170418172425910?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQveXVmZWl5YW5saXU=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+![word view](https://raw.githubusercontent.com/ethendev/data/master/wopihost/20170418172425910.png)
 
 word文档编辑  
 
 http://[owas.domain]/we/wordeditorframe.aspx?WOPISrc=http://[WopiHost.domain]:8080/wopi/files/test.docx&access_token=123
-![Alt text](http://img.blog.csdn.net/20170418172534332?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQveXVmZWl5YW5saXU=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+![word edit](https://raw.githubusercontent.com/ethendev/data/master/wopihost/20170418172534332.png)
 
 excel预览  
 
