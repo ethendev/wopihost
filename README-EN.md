@@ -10,38 +10,38 @@ WopiHost supports previewing and editing documents such as word, excel, and ppt 
 First you need to install Office online 2016 and java 1.8.
 
 ### Usage
-word preview
+configure the file path in Application.properties
+```
+file.path=E:\\
+```
 
-http://[owas.domain]/wv/wordviewerframe.aspx?WOPISrc=http://[WopiHost.domain]:8080/wopi/files/test.docx&access_token=123
+word preview
+http://[owas.domain]/wv/wordviewerframe.aspx?WOPISrc=http://[WopiHost.IP]:8080/wopi/files/test.docx&access_token=123
 ![word view](https://raw.githubusercontent.com/ethendev/data/master/wopihost/20170418172425910.png)
 
 word editor 
-
-http://[owas.domain]/we/wordeditorframe.aspx?WOPISrc=http://[WopiHost.domain]:8080/wopi/files/test.docx&access_token=123
+http://[owas.domain]/we/wordeditorframe.aspx?WOPISrc=http://[WopiHost.IP]:8080/wopi/files/test.docx&access_token=123
 ![word edit](https://raw.githubusercontent.com/ethendev/data/master/wopihost/20170418172534332.png)
 
 excel preview  
-
-http://[owas.domain]/x/_layouts/xlviewerinternal.aspx?ui=zh-CN&rs=zh-CN&WOPISrc=http://[WopiHost.domain]:8080/wopi/files/test.xlsx&access_token=123
+http://[owas.domain]/x/_layouts/xlviewerinternal.aspx?ui=zh-CN&rs=zh-CN&WOPISrc=http://[WopiHost.IP]:8080/wopi/files/test.xlsx&access_token=123
 
 excel editor
-
-http://[owas.domain]/x/_layouts/xlviewerinternal.aspx?edit=1&WOPISrc=http://[WopiHost.domain]:8080/wopi/files/test.xlsx&access_token=123
+http://[owas.domain]/x/_layouts/xlviewerinternal.aspx?edit=1&WOPISrc=http://[WopiHost.IP]:8080/wopi/files/test.xlsx&access_token=123
 
 ppt preview  
-
-http://[owas.domain]/p/PowerPointFrame.aspx?PowerPointView=ReadingView&WOPISrc=http://[WopiHost.domain]:8080/wopi/files/test.pptx&access_token=123
+http://[owas.domain]/p/PowerPointFrame.aspx?PowerPointView=ReadingView&WOPISrc=http://[WopiHost.IP]:8080/wopi/files/test.pptx&access_token=123
 
 ppt editor  
+http://[owas.domain]/p/PowerPointFrame.aspx?PowerPointView=EditView&WOPISrc=http://[WopiHost.IP]:8080/wopi/files/test.pptx&access_token=123
 
-http://[owas.domain]/p/PowerPointFrame.aspx?PowerPointView=EditView&WOPISrc=http://[WopiHost.domain]:8080/wopi/files/test.pptx&access_token=123
-
-Note：[owas.domain] is the IP address of Office online 2016，[WopiHost.domain] is the address of wopihost。
+Note：[owas.domain] is the IP or domain address of Office online 2016，[WopiHost.IP] is the address of wopihost。
 
 ### Known issues
-* Doc files can`t be previewed and edited, but docx is ok.
-* PPT files can be previewed, but can`t be edited.
+* Word document editing supports .docx format, does not support .doc.
+* Pdf files can be previewed, but can`t be edited.
 * I didn't check the access_token parameter. if you need it, implement it yourself.
+* If you can't preview or edit the document files, it may be a network problem between Wopi and Office Web Apps Server, or a problem with Office Web Apps Server, you can reinstall it and try again.
 
 ### License
 [MIT License](https://github.com/ethendev/wopihost/blob/master/LICENSE.md)
