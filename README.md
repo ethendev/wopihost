@@ -43,8 +43,10 @@ http://[owas.domain]/p/PowerPointFrame.aspx?PowerPointView=EditView&WOPISrc=http
 ### 常见问题
 * word 文档编辑支持 .docx 格式，不支持 .doc 。
 * pdf 仅支持预览，不支持编辑。
-* 如果 wopihost 的接口没有问题，但是不能预览或者编辑文档，可能 wopi 和 Office Web Apps Server 之间的网络不能互通，也可能 Office Web Apps Server 有问题，建议重新安装后重试。
-* 中文名字的文档不能预览、编辑，将中文名使用 URLEncoder.encode 进行两次编码。例如：哈哈哈.xlsx, 编码为 %25e5%2593%2588%25e5%2593%2588%25e5%2593%2588.xlsx 即可正常预览。
+* 如果 wopihost 的接口没有问题，但是不能预览或者编辑文档  
+  可能 wopi 和 Office Web Apps Server 之间的网络不能互通，也可能 Office Web Apps Server 配置有问题，建议检查配置或者重装后重试。
+* 不能打开中文名的文件，提示 `Unable to Open the File`  
+  将文件名使用 URLEncoder.encode 进行两次编码。例如：测试.xlsx, 编码为 %25E6%25B5%258B%25E8%25AF%2595.xlsx 即可正常预览、编辑。
 
 ### License
 [MIT License](https://github.com/ethendev/wopihost/blob/master/LICENSE.md)

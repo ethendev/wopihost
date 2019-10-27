@@ -5,66 +5,82 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
 
 /**
- * 文件属性对象
+ * File property object, because wopi does not follow the hump naming rules,
+ * we need to specify the alias with @JsonProperty
  *
- * 由于wopi的接口不遵守驼峰命名规则，所以需要用@JsonProperty指定别名
- * Created by ethendev on 2017/4/15.
+ * @author ethendev
+ * @date 2017/4/15
  */
 public class FileInfo implements Serializable {
 
     /**
-     * 文件名
+     * file name
      */
     @JsonProperty("BaseFileName")
     private String baseFileName;
 
     /**
-     * 文件所有者的唯一编号
+     * A string that uniquely identifies the owner of the file
      */
     @JsonProperty("OwnerId")
     private String ownerId;
 
     /**
-     * 文件大小，以bytes为单位
+     * File size in bytes
      */
     @JsonProperty("Size")
     private long size;
 
     /**
-     * 文件的256位bit的SHA-2编码散列内容
+     * A 256 bit SHA-2-encoded hash of the file contents, as a Base64-encoded string.
+     * Used for caching purposes in WOPI clients.
      */
     @JsonProperty("SHA256")
     private String sha256;
 
     /**
-     * 文件版本号，文件如果被编辑，版本号也要跟着改变
+     * The current version of the file based on the server’s file version schema
+     * This value must change when the file changes, and version values must never repeat for a given file.
      */
     @JsonProperty("Version")
     private long version;
 
     /**
-     * 允许外部服务的连接
+     * indicates a WOPI client may allow connections to external services referenced in the file
      */
     @JsonProperty("AllowExternalMarketplace")
     private boolean allowExternalMarketplace = true;
 
     /**
-     * 更改文件的权限
+     * indicates that the WOPI client if allow the user to edit the file
      */
     @JsonProperty("UserCanWrite")
     private boolean userCanWrite = true;
 
     /**
-     * 是否支持更新
+     * if the host supports the update operations
      */
     @JsonProperty("SupportsUpdate")
     private boolean supportsUpdate = true;
 
     /**
-     * 是否支持锁定
+     * if the host supports the GetLock operation.
+     */
+    @JsonProperty("SupportsGetLock")
+    private boolean supportsGetLock = true;
+
+    /**
+     * indicates that the host supports the following WOPI operations:
+     * Lock, Unlock, RefreshLock, UnlockAndRelock
      */
     @JsonProperty("SupportsLocks")
     private boolean supportsLocks = true;
+
+    /**
+     * user does not have sufficient permission to create new files on the WOPI server
+     */
+    @JsonProperty("UserCanNotWriteRelative")
+    private boolean userCanNotWriteRelative = true;
 
     public String getBaseFileName() {
         return baseFileName;
@@ -130,12 +146,28 @@ public class FileInfo implements Serializable {
         this.supportsUpdate = supportsUpdate;
     }
 
+    public boolean isSupportsGetLock() {
+        return supportsGetLock;
+    }
+
+    public void setSupportsGetLock(boolean supportsGetLock) {
+        this.supportsGetLock = supportsGetLock;
+    }
+
     public boolean isSupportsLocks() {
         return supportsLocks;
     }
 
     public void setSupportsLocks(boolean supportsLocks) {
         this.supportsLocks = supportsLocks;
+    }
+
+    public boolean isUserCanNotWriteRelative() {
+        return userCanNotWriteRelative;
+    }
+
+    public void setUserCanNotWriteRelative(boolean userCanNotWriteRelative) {
+        this.userCanNotWriteRelative = userCanNotWriteRelative;
     }
 
     @Override
@@ -149,6 +181,7 @@ public class FileInfo implements Serializable {
                 ", allowExternalMarketplace=" + allowExternalMarketplace +
                 ", userCanWrite=" + userCanWrite +
                 ", supportsUpdate=" + supportsUpdate +
+                ", supportsGetLock=" + supportsGetLock +
                 ", supportsLocks=" + supportsLocks +
                 '}';
     }

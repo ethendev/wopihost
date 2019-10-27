@@ -4,7 +4,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * Created by ethendev on 2017/4/15.
+ * @author ethendev
+ * @date 2017/4/15
  */
 @SpringBootApplication
 public class WopihostApplication {
