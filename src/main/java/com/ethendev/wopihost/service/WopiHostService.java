@@ -62,8 +62,8 @@ public class WopiHostService {
 
     public ResponseEntity postFile(String name, byte[] content, HttpServletRequest request) {
         ResponseEntity response;
-        String path = filePath + name;
-        File file = new File(path);
+        String requestLock = request.getHeader(WopiRequestHeader.LOCK);
+        File file = new File(filePath + name);
         if (file.exists()) {
             response = lockService.putFile(request, file, content);
             if (response.getStatusCodeValue() != WopiStatus.OK.value()) {
@@ -73,6 +73,7 @@ public class WopiHostService {
             response = ResponseEntity.status(WopiStatus.NOT_FOUND.value()).build();
             logger.error("postFile failed, file not found");
         }
+        logger.info("postFile -- filename: {}, response: {} , requestLock: {}", name, response, requestLock);
         return response;
     }
 
@@ -95,10 +96,12 @@ public class WopiHostService {
 
     public ResponseEntity handleLock(String fileName, HttpServletRequest request) {
         ResponseEntity response = null;
-        String wopiOverride = request.getHeader("X-WOPI-Override");
+        String wopiOverride = request.getHeader(WopiRequestHeader.OVERRIDE);
+        String requestLock = request.getHeader(WopiRequestHeader.LOCK);
+        String oldLock = request.getHeader(WopiRequestHeader.OLD_LOCK);
         switch (wopiOverride) {
             case "LOCK":
-                if (request.getHeader(WopiRequestHeader.OLD_LOCK) != null) {
+                if (oldLock != null) {
                     wopiOverride = "UNLOCK_AND_RELOCK";
                     response = lockService.unlockAndRelock(request, fileName);
                 } else {
@@ -115,11 +118,11 @@ public class WopiHostService {
                 response = lockService.unlock(request, fileName);
                 break;
             default:
-                response = ResponseEntity.status(WopiStatus.NOT_FOUND.value()).build();
+                response = ResponseEntity.status(WopiStatus.NOT_IMPLEMENTED.value()).build();
                 break;
         }
-        logger.debug("handleLock status: {}, filename: {}, override: {}, response: {}", response.getStatusCodeValue(),
-                fileName, wopiOverride, response);
+        logger.info("handleLock -- filename: {}, override: {}, response: {}, requestLock: {}, oldLock: {}",
+                fileName, wopiOverride, response, requestLock, oldLock);
         return response;
     }
 

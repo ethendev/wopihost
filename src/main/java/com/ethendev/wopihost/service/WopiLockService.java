@@ -9,7 +9,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -166,7 +165,7 @@ public class WopiLockService {
     }
 
     /**
-     * Processes a PutFile request
+     * Processes a update file request
      *
      * @param request
      * @param file
@@ -190,13 +189,23 @@ public class WopiLockService {
             lockRepository.delete(file.getName());
             return setLockMismatch(EMPTY_STRING, "File isn't locked");
         } else if (!lockInfo.getLockValue().equals(requestLock)) {
+            // TODO remove below 4 lines code when the lock for word works well
+            // There seems to be a bug in word's lock
+            // the locks in the header of unlock_and_relock and putfile request are not the same
+            // we need to deal with it, otherwise we won't be able to save the word document//
+            // refer https://social.msdn.microsoft.com/Forums/en-US/bb2f9118-8efd-463d-b4a2-54bb2cebf882/word-online-file-unlock-bug-office-online-server-201605?forum=os_office
+            String suffix = file.getName().substring(file.getName().lastIndexOf(".") + 1);
+            if ("docx".equals(suffix)) {
+                writeFile(file, content);
+                return ResponseEntity.ok().build();
+            }
             return setLockMismatch(EMPTY_STRING, "Lock mismatch");
         }
         writeFile(file, content);
         return ResponseEntity.ok().build();
     }
 
-    public void writeFile(File file, byte[] content) {
+    private void writeFile(File file, byte[] content) {
         try (FileOutputStream fop = new FileOutputStream(file)) {
             fop.write(content);
             fop.flush();
@@ -209,10 +218,7 @@ public class WopiLockService {
         HttpHeaders headers = new HttpHeaders();
         headers.set(WopiResponseHeader.LOCK, existingLock);
         headers.set(WopiResponseHeader.LOCK_FAILURE_REASON, failReason);
-        return ResponseEntity.status(HttpStatus.CONFLICT)
-                .headers(headers)
-                .contentType(MediaType.APPLICATION_JSON_UTF8)
-                .body("Lock mismatch/Locked by another interface");
+        return ResponseEntity.status(HttpStatus.CONFLICT).headers(headers).build();
     }
 
 }
