@@ -17,6 +17,11 @@
 file.path=E:\\
 ```
 
+#### 接口访问地址  
+http://[owas.domain]/hosting/discovery  
+打开上面的URL, 可以看到结果如下的XML文件，上面有对应的文件类型的请求路径。  
+![请求路径](https://github.com/ethendev/data/blob/master/wopihost/20170418114309314.png)
+
 word文档预览
 http://[owas.domain]/wv/wordviewerframe.aspx?WOPISrc=http://[WopiHost.IP]:8080/wopi/files/test.docx
 ![word view](https://raw.githubusercontent.com/ethendev/data/master/wopihost/20170418172425910.png)
@@ -47,6 +52,8 @@ http://[owas.domain]/p/PowerPointFrame.aspx?PowerPointView=EditView&WOPISrc=http
   可能 wopi 和 Office Web Apps Server 之间的网络不能互通，也可能 Office Web Apps Server 配置有问题，建议检查配置或者重装后重试。
 * 不能打开中文名的文件，提示 `Unable to Open the File`  
   将文件名使用 URLEncoder.encode 进行两次编码。例如：测试.xlsx, 编码为 %25E6%25B5%258B%25E8%25AF%2595.xlsx 即可正常预览、编辑。
-
+* 因为 office 的 [BUG](https://social.msdn.microsoft.com/Forums/en-US/bb2f9118-8efd-463d-b4a2-54bb2cebf882/word-online-file-unlock-bug-office-online-server-201605?forum=os_office)，
+  更新docx文件时 unlockAndRelock 和 putfile 请求中 header 中的锁不一致，因此在处理更新docx请求时，不去校验lock是否一致，否则无法保存docx更改。
+  
 ### License
 [MIT License](https://github.com/ethendev/wopihost/blob/master/LICENSE.md)

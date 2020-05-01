@@ -38,6 +38,11 @@ public class WopiHostService {
 
     private Logger logger = LoggerFactory.getLogger(WopiHostController.class);
 
+    /**
+     * Retrieves a file from a host.
+     * @param name a file ID of a file managed by host
+     * @param response
+     */
     public void getFile(String name, HttpServletResponse response) {
         String path = filePath + name;
         File file = new File(path);
@@ -60,6 +65,13 @@ public class WopiHostService {
         }
     }
 
+    /**
+     * Updates a file’s binary contents.
+     * @param name a file ID of a file managed by host
+     * @param content the full binary contents of the file
+     * @param request
+     * @return
+     */
     public ResponseEntity postFile(String name, byte[] content, HttpServletRequest request) {
         ResponseEntity response;
         String requestLock = request.getHeader(WopiRequestHeader.LOCK);
@@ -77,6 +89,14 @@ public class WopiHostService {
         return response;
     }
 
+    /**
+     * Returns information about a file, a user’s permissions on that file,
+     * and general information about the capabilities that the WOPI host has on the file.
+     *
+     * @param fileName a file ID of a file managed by host
+     * @return
+     * @throws Exception
+     */
     public ResponseEntity<FileInfo> getFileInfo(String fileName) throws Exception {
         FileInfo info = new FileInfo();
         if (fileName != null && fileName.length() > 0) {
